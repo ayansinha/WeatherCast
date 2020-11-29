@@ -6,16 +6,15 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient_sunny"
     android:fitsSystemWindows="true"
-    tools:context=".ui.ActivityForecast">
+    tools:context=".ui.view.ActivityForecast">
 
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textViewMainTemp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_thin"
         android:text="30\u00B0"
-        android:textAlignment="center"
         android:textColor="#ffffff"
         android:textSize="100sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -34,7 +33,66 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewMainTemp" />
+
+    <TextView
+        android:id="@+id/mainMinTemp"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/roboto_thin"
+        android:text="19\u00B0C"
+        android:textColor="#ffffff"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewMainTemp"
+        app:layout_constraintStart_toEndOf="@+id/textViewMainTemp" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="70dp"
+        android:layout_height="1dp"
+        android:background="#ffffff"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/mainMinTemp"
+        app:layout_constraintEnd_toEndOf="@+id/mainMinTemp"
+        app:layout_constraintHorizontal_bias="0.888"
+        app:layout_constraintStart_toStartOf="@+id/mainMinTemp" />
+
+    <TextView
+        android:id="@+id/mainMaxTemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/roboto_thin"
+        android:text="28\u00B0C"
+        android:textColor="#ffffff"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@id/view"
+        app:layout_constraintEnd_toEndOf="@+id/mainMinTemp"
+        app:layout_constraintStart_toEndOf="@+id/textViewMainTemp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_sunny"
+        app:layout_constraintBottom_toTopOf="@+id/textViewMainTemp"
+        app:layout_constraintStart_toStartOf="@+id/textViewMainTemp" />
+
+    <TextView
+        android:id="@+id/textViewStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_light"
+        android:text="HOT"
+        android:textColor="#fff"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewMainTemp"
+        app:layout_constraintEnd_toEndOf="@+id/textViewMainTemp"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="@+id/imageView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

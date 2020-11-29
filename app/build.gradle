@@ -15,14 +15,19 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
+        debug {
+            buildConfigField "String", "BASE_URL", "\"http://maps.openweathermap.org/data/2.5\""
+            buildConfigField "String", "API_KEY", "\"b6763750e44c33e7e4ea0a5b2fa6430d\""
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "BASE_URL", "\"http://maps.openweathermap.org/data/2.5\""
+            buildConfigField "String", "API_KEY", "\"b6763750e44c33e7e4ea0a5b2fa6430d\""
         }
     }
     compileOptions {
