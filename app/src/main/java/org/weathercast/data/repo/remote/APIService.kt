@@ -1,16 +1,14 @@
 package org.weathercast.data.repo.remote
 
 import org.weathercast.BuildConfig
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.GET
+import retrofit2.http.Query
 
-object APIService {
+interface APIService {
 
-    private fun getRetrofit(): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(BuildConfig.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
-    val apiService: APIService = getRetrofit().create(APIService::class.java)
+    @GET("weather")
+    suspend fun getCurrentWeather(@Query("q") cityName: String, @Query(BuildConfig.API_KEY) apiKey: String)
+
+    @GET("forecast")
+    suspend fun getWeeksData(@Query("q") cityName: String, @Query(BuildConfig.API_KEY) apiKey: String)
 }
