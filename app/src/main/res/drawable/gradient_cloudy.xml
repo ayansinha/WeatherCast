@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
-        <shape>
+        <shape android:shape="rectangle">
+
             <gradient
                 android:angle="90"
                 android:startColor="#3498db"
@@ -10,4 +10,22 @@
                 android:type="linear"/>
         </shape>
     </item>
-</selector>
+    <item
+        android:top="420dp"
+        android:bottom="0dp"
+        android:left="-60dp"
+        android:right="-60dp">
+
+        <shape
+            android:innerRadius="0dp"
+            android:shape="rectangle"
+            android:useLevel="true">
+
+            <solid android:color="@android:color/white"/>
+            <corners
+                android:bottomLeftRadius="0dp"
+                android:topLeftRadius="260dp"
+                android:topRightRadius="260dp"/>
+        </shape>
+    </item>
+</layer-list>
