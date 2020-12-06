@@ -4,4 +4,6 @@ import org.weathercast.BuildConfig
 
 class RemoteRepository(private val apiService: APIService) {
     suspend fun getCurrentWeather(cityName: String) = apiService.getCurrentWeather(cityName , BuildConfig.API_KEY)
+
+    suspend fun getWeekWeather(cityName: String) = apiService.getWeeksData(cityName , BuildConfig.API_KEY)
 }

@@ -11,7 +11,7 @@
     app:contentPadding="10dp"
     app:contentPaddingBottom="10dp"
     app:cardElevation="0dp"
-    android:backgroundTint="@android:color/background_light">
+    android:backgroundTint="@color/grey">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,7 +33,7 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/roboto_light"
                 android:text="Monday"
-                android:textColor="#aeaeae"
+                android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.505"
@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="30\u00B0c"
-                android:textColor="#aeaeae"
+                android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="21\u00B0"
-                android:textColor="#aeaeae"
+                android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="@+id/imageViewMin"
                 app:layout_constraintStart_toStartOf="@+id/imageViewMin"
@@ -100,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:text="26\u00B0"
                 android:layout_marginTop="4dp"
-                android:textColor="#aeaeae"
+                android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="@+id/imageViewMax"
                 app:layout_constraintStart_toStartOf="@+id/imageViewMax"

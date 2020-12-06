@@ -1,5 +1,3 @@
 package org.weathercast.util
 
-object EndPoints {
-
-}
+object EndPoints

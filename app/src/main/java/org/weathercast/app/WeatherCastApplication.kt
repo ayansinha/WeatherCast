@@ -1,4 +1,3 @@
 package org.weathercast.app
 
-class WeatherCastApplication {
-}
+class WeatherCastApplication

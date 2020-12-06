@@ -3,6 +3,8 @@ package org.weathercast.ui.view
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,6 +13,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.weathercast.R
 import org.weathercast.data.model.ForecastModel
 import org.weathercast.data.model.WeatherCurrentModel
+import org.weathercast.data.model.WeeksForecastModel
 import org.weathercast.data.repo.remote.APIBuilder
 import org.weathercast.data.repo.remote.RemoteRepository
 import org.weathercast.ui.BaseViewModelFactory
@@ -28,53 +31,70 @@ class ActivityForecast : AppCompatActivity() {
             ForecastViewModel::class.java
         )
     }
+    private lateinit var forecastLists: List<WeeksForecastModel.WeeksData>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Log.d("TAG", "INIT_BLOCK: --> onCreate")
         fetchCurrentData()
 
-        val forecastLists = mutableListOf(
-            ForecastModel("Monday", "31\u00B0c", "34°", "28°", R.drawable.ic_cloud),
-            ForecastModel("Tuesday", "29\u00B0c", "33°", "27°", R.drawable.ic_sunny),
-            ForecastModel("Wednesday", "32\u00B0c", "35°", "26°", R.drawable.ic_rainy),
-            ForecastModel("Thursday", "33\u00B0c", "36°", "28°", R.drawable.ic_night),
-            ForecastModel("Friday", "31\u00B0c", "35°", "29°", R.drawable.ic_thunder)
-        )
+    }
 
+    private fun fetchCurrentData() {
+        viewModel.resultCurrentWeather.observe(this,{
 
+            when (it.status) {
+                Status.LOADING -> {
+                    progressBar.visibility = View.VISIBLE
+                }
+                Status.SUCCESS -> {
+                    progressBar.visibility = View.GONE
+                    recyclerViewForecast.visibility = View.VISIBLE
+                    textViewMainTemp.visibility = View.VISIBLE
+                    mainMinTemp.visibility = View.VISIBLE
+                    separator.visibility = View.VISIBLE
+                    mainMaxTemp.visibility = View.VISIBLE
+                    imageViewStatus.visibility = View.VISIBLE
+                    textViewStatus.visibility = View.VISIBLE
+                    it.data?.let { value ->
+                        value.body()?.let { res ->
+                            Log.e("RES->", res.toString())
+                            displayTemp(res)
+                        }
+                    }
+                    fetchWeeksData()
+                }
+                Status.ERROR -> {
+                    progressBar.visibility = View.GONE
+                }
+            }
+        })
+    }
+
+    private fun fetchWeeksData() {
+        viewModel.resultWeeksData.observe(this, {
+            when (it.status) {
+                Status.LOADING -> {
+                }
+                Status.SUCCESS -> {
+                    it.data?.let { value ->
+                        value.body()?.list?.let { res -> displayAdapter(res) }
+                    }
+                }
+                Status.ERROR -> {
+                }
+            }
+        })
+    }
+
+    private fun displayAdapter(list: List<WeeksForecastModel.WeeksData>) {
         recyclerViewForecast.apply {
             layoutManager =
                 LinearLayoutManager(this@ActivityForecast, RecyclerView.HORIZONTAL, false)
             setHasFixedSize(true)
-            adapter = ForecastAdapter(forecastLists, this@ActivityForecast)
+            adapter = ForecastAdapter(list, this@ActivityForecast)
         }
-    }
-
-    private fun fetchCurrentData() {
-        viewModel.resultCurrentWeather.observe(this, {
-            Log.d("TAG", "INIT_BLOCK: --> observer")
-            Log.e("RESPONSE->", it.data.toString())
-            it.data?.let { value ->
-                value.body()?.let { res ->
-                    Log.e("RES->", res.toString())
-                    displayTemp(res)
-                }
-            }
-            when (it.status) {
-                Status.LOADING -> {
-                    Log.e("STATUS", "LOADING" )
-                }
-                Status.SUCCESS -> {
-                    Log.e("STATUS", "SUCCESS" )
-                }
-                Status.ERROR -> {
-                    Log.e("STATUS", "ERROR" )
-                }
-            }
-        })
     }
 
     @SuppressLint("SetTextI18n")
