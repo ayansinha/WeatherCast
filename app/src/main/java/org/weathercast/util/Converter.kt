@@ -7,23 +7,21 @@ import java.util.*
 
 object Converter {
 
-    private val currentTime: String
-        @SuppressLint("SimpleDateFormat")
-        get() {
-            val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-            return dateFormat.format(Date())
-        }
-
-    private val timestamp: String
-        @SuppressLint("SimpleDateFormat")
-        get(){
-            val formatter: DateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-            val date = formatter.parse(currentTime) as Date
-            return date.time.toString().dropLast(3) //it is returning
-        }
+    /**
+     * current day of the week
+     */
+    val currentDay: String get() = Calendar.DAY_OF_WEEK.toString()
 
     /**
-     * TODO -> keep it in a util class to convert for all the temperatures
+     * value of user's current time
+     */
+    @SuppressLint("SimpleDateFormat")
+    fun currentTime(format: String): String {
+        return SimpleDateFormat("MM-dd HH:mm").format(Date())
+    }
+
+    /**
+     * function to convert kelvin-to-celsius in integer
      */
     fun kelvinToCelsius(kelvin: Double): Int {
         return (kelvin - 273.15).toInt()

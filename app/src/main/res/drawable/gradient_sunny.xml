@@ -4,7 +4,7 @@
     android:width="600dp"
     android:height="800dp"
     android:viewportWidth="600"
-    android:viewportHeight="900"
+    android:viewportHeight="800"
     tools:ignore="VectorRaster">
     <path
         android:fillColor="#FF8C00"
