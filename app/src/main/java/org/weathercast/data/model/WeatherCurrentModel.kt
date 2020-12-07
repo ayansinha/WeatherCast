@@ -1,10 +1,16 @@
 package org.weathercast.data.model
 
+import com.google.gson.annotations.SerializedName
+
+/**
+ * [WeatherCurrentModel]
+ */
 data class WeatherCurrentModel(
     val base: String,
     val clouds: Clouds,
     val cod: Int,
-    val co_ord: Coord,
+    @SerializedName("co_ord")
+    val coordinate: Coord,
     val dt: Int,
     val id: Int,
     val main: Main,
@@ -25,14 +31,19 @@ data class WeatherCurrentModel(
     )
 
     data class Main(
-        val feels_like: Double,
-        val grnd_level: Int,
+        @SerializedName("feels_like")
+        val feelsLike: Double,
+        @SerializedName("grnd_level")
+        val groundLevel: Int,
         val humidity: Int,
         val pressure: Int,
-        val sea_level: Int,
+        @SerializedName("sea_level")
+        val seaLevel: Int,
         val temp: Double,
-        val temp_max: Double,
-        val temp_min: Double
+        @SerializedName("temp_max")
+        val tempMax: Double,
+        @SerializedName("temp_min")
+        val tempMin: Double
     )
 
     data class Sys(

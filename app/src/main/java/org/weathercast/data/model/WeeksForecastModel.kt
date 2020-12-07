@@ -1,5 +1,10 @@
 package org.weathercast.data.model
 
+import com.google.gson.annotations.SerializedName
+
+/**
+ * [WeeksForecastModel]
+ */
 data class WeeksForecastModel(
     val city: City,
     val cnt: Int,
@@ -10,7 +15,8 @@ data class WeeksForecastModel(
     data class WeeksData(
         val clouds: Clouds,
         val dt: Int,
-        val dt_txt: String,
+        @SerializedName("dt_txt")
+        val dtText: String,
         val main: Main,
         val pop: Int,
         val sys: Sys,
@@ -22,15 +28,21 @@ data class WeeksForecastModel(
             val all: Int
         )
         data class Main(
-            val feels_like: Double,
-            val grnd_level: Int,
+            @SerializedName("feels_like")
+            val feelsLike: Double,
+            @SerializedName("grnd_level")
+            val groundLevel: Int,
             val humidity: Int,
             val pressure: Int,
-            val sea_level: Int,
+            @SerializedName("sea_level")
+            val seaLevel: Int,
             val temp: Double,
-            val temp_kf: Double,
-            val temp_max: Double,
-            val temp_min: Double
+            @SerializedName("temp_kf")
+            val tempKf: Double,
+            @SerializedName("temp_max")
+            val tempMax: Double,
+            @SerializedName("temp_min")
+            val tempMin: Double
         )
         data class Weather(
             val description: String,
