@@ -1,10 +1,14 @@
 package org.weathercast.util
 
 import android.annotation.SuppressLint
-import java.text.DateFormat
+import org.weathercast.util.Constants.Companion.kelvin_scale
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Date
 
+/**
+ * [Constants]
+ */
 object Converter {
 
     /**
@@ -23,7 +27,5 @@ object Converter {
     /**
      * function to convert kelvin-to-celsius in integer
      */
-    fun kelvinToCelsius(kelvin: Double): Int {
-        return (kelvin - 273.15).toInt()
-    }
+    fun kelvinToCelsius(kelvin: Double): Int = (kelvin - kelvin_scale).toInt()
 }

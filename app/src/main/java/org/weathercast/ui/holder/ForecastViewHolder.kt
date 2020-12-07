@@ -7,6 +7,9 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import org.weathercast.R
 
+/**
+ * [ForecastViewHolder]
+ */
 class ForecastViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     var container: ConstraintLayout = itemView.findViewById(R.id.container)
     var days: TextView = itemView.findViewById(R.id.textViewDay)
@@ -14,5 +17,4 @@ class ForecastViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     var maxTemp: TextView = itemView.findViewById(R.id.textViewMaxTemp)
     var minTemp: TextView = itemView.findViewById(R.id.textViewMinTemp)
     var image: ImageView = itemView.findViewById(R.id.imageViewForecast)
-
 }

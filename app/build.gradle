@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'kotlin-android-extensions'
+    id 'io.gitlab.arturbosch.detekt'
 }
 
 android {
@@ -97,4 +98,13 @@ dependencies {
      * picasso dependency
      */
     implementation "com.squareup.picasso:picasso:$rootProject.picasso_version"
+
+    /**
+     * dagger dependency
+     */
+    api "com.google.dagger:dagger:$rootProject.dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$rootProject.dagger_version"
+    api "com.google.dagger:dagger-android:$rootProject.dagger_version"
+    api "com.google.dagger:dagger-android-support:$rootProject.dagger_version"
+    kapt "com.google.dagger:dagger-android-processor:$rootProject.dagger_version"
 }

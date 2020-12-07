@@ -13,10 +13,13 @@ import org.weathercast.data.model.WeeksForecastModel
 import org.weathercast.data.repo.remote.RemoteRepository
 import org.weathercast.util.Constants.Companion.ERROR_MSG
 import org.weathercast.util.Resource
-import org.weathercast.util.Status
 import retrofit2.Response
+import java.io.IOException
 
-class ForecastViewModel(private val remote: RemoteRepository): ViewModel() {
+/**
+ * [ForecastViewModel]
+ */
+class ForecastViewModel(private val remote: RemoteRepository) : ViewModel() {
 
     private lateinit var job: Job
     private val _currentWeatherModel = MutableLiveData<Resource<Response<WeatherCurrentModel>>>()
@@ -41,9 +44,9 @@ class ForecastViewModel(private val remote: RemoteRepository): ViewModel() {
             try {
                 _currentWeatherModel.postValue(Resource.success(remote.getCurrentWeather("pune")))
                 fetchWeeksData()
-            }catch (e: Exception) {
+            } catch (e: IOException) {
                 _currentWeatherModel.postValue(Resource.error(ERROR_MSG, null))
-                e.message?: ERROR_MSG
+                // e.message?: ERROR_MSG
             }
         }
     }
@@ -56,20 +59,12 @@ class ForecastViewModel(private val remote: RemoteRepository): ViewModel() {
             _weeksData.postValue(Resource.loading(null))
             try {
                 _weeksData.postValue(Resource.success(remote.getWeekWeather("pune")))
-            }catch (e: Exception) {
+            } catch (e: IOException) {
                 _weeksData.postValue(Resource.error(ERROR_MSG, null))
-                e.message?: ERROR_MSG
+                // e.message?: ERROR_MSG
             }
         }
     }
-
-    /*fun getCountryModel(): LiveData<Resource<Response<WeatherCurrentModel>>> {
-        return _currentWeatherModel
-    }
-
-    fun getWeeksModel(): LiveData<Resource<Response<WeeksForecastModel>>> {
-        return _weeksData
-    }*/
 
     override fun onCleared() {
         super.onCleared()

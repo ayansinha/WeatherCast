@@ -6,6 +6,9 @@ import org.weathercast.BuildConfig
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+/**
+ * [APIBuilder]
+ */
 object APIBuilder {
 
     private fun getRetrofit(): Retrofit {
