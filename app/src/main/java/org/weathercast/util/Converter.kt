@@ -21,7 +21,7 @@ object Converter {
      */
     @SuppressLint("SimpleDateFormat")
     fun currentTime(format: String): String {
-        return SimpleDateFormat("MM-dd HH:mm").format(Date())
+        return SimpleDateFormat(format).format(Date())
     }
 
     /**

@@ -18,7 +18,7 @@ data class WeeksForecastModel(
         @SerializedName("dt_txt")
         val dtText: String,
         val main: Main,
-        val pop: Int,
+        val pop: Double,
         val sys: Sys,
         val visibility: Int,
         val weather: List<Weather>,

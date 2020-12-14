@@ -1,6 +1,5 @@
 package org.weathercast.ui.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,22 +13,30 @@ import org.weathercast.data.repo.remote.RemoteRepository
 import org.weathercast.util.Constants.Companion.ERROR_MSG
 import org.weathercast.util.Resource
 import retrofit2.Response
+import timber.log.Timber
 import java.io.IOException
+import javax.inject.Inject
 
 /**
  * [ForecastViewModel]
  */
-class ForecastViewModel(private val remote: RemoteRepository) : ViewModel() {
+class ForecastViewModel @Inject constructor(
+    private val remote: RemoteRepository /*, private val cityName: String*/
+): ViewModel() {
 
     private lateinit var job: Job
-    private val _currentWeatherModel = MutableLiveData<Resource<Response<WeatherCurrentModel>>>()
-    val resultCurrentWeather: LiveData<Resource<Response<WeatherCurrentModel>>> get() = _currentWeatherModel
+    private val _currentWeatherModel =
+        MutableLiveData<Resource<Response<WeatherCurrentModel>>>()
+    val resultCurrentWeather: LiveData<Resource<Response<WeatherCurrentModel>>>
+        get() = _currentWeatherModel
 
-    private val _weeksData = MutableLiveData<Resource<Response<WeeksForecastModel>>>()
-    val resultWeeksData: LiveData<Resource<Response<WeeksForecastModel>>> get() = _weeksData
+    private val _weeksData =
+        MutableLiveData<Resource<Response<WeeksForecastModel>>>()
+    val resultWeeksData: LiveData<Resource<Response<WeeksForecastModel>>>
+        get() = _weeksData
 
     init {
-        Log.d("TAG", "INIT_BLOCK: --> init block")
+        Timber.d("INIT_BLOCK: --> init block")
         job = Job()
         fetchCurrentWeather()
     }
@@ -38,15 +45,14 @@ class ForecastViewModel(private val remote: RemoteRepository) : ViewModel() {
      * fetch current weather data
      */
     private fun fetchCurrentWeather() {
-        Log.d("TAG", "INIT_BLOCK: --> fetchCurrentWeather")
+        Timber.d("INIT_BLOCK: --> fetchCurrentWeather")
         viewModelScope.launch(IO + job) {
             _currentWeatherModel.postValue(Resource.loading(null))
             try {
-                _currentWeatherModel.postValue(Resource.success(remote.getCurrentWeather("pune")))
+                _currentWeatherModel.postValue(Resource.success(remote.getCurrentWeather("Pune")))
                 fetchWeeksData()
             } catch (e: IOException) {
                 _currentWeatherModel.postValue(Resource.error(ERROR_MSG, null))
-                // e.message?: ERROR_MSG
             }
         }
     }
@@ -58,10 +64,9 @@ class ForecastViewModel(private val remote: RemoteRepository) : ViewModel() {
         viewModelScope.launch(IO + job) {
             _weeksData.postValue(Resource.loading(null))
             try {
-                _weeksData.postValue(Resource.success(remote.getWeekWeather("pune")))
+                _weeksData.postValue(Resource.success(remote.getWeekWeather("Pune")))
             } catch (e: IOException) {
                 _weeksData.postValue(Resource.error(ERROR_MSG, null))
-                // e.message?: ERROR_MSG
             }
         }
     }
