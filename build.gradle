@@ -57,4 +57,5 @@ ext {
     espresso_version = '3.3.0'
     mockito_version = '3.3.1'
     dagger_version = '2.30.1'
+    timber_version = '4.7.1'
 }
