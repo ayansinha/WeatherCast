@@ -112,4 +112,8 @@ dependencies {
     api "com.google.dagger:dagger-android:$rootProject.dagger_version"
     api "com.google.dagger:dagger-android-support:$rootProject.dagger_version"
     kapt "com.google.dagger:dagger-android-processor:$rootProject.dagger_version"
+
+    def work_version = "2.4.0"
+    // Kotlin + coroutines
+    implementation "androidx.work:work-runtime-ktx:$work_version"
 }

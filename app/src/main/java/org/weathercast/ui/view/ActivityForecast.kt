@@ -58,6 +58,7 @@ class ActivityForecast : DaggerAppCompatActivity() {
         setContentView(R.layout.activity_main)
         viewModel = ViewModelProvider(this, viewModelFactory).get(ForecastViewModel::class.java)
         fetchCurrentData()
+
     }
 
     private fun fetchCurrentData() {
@@ -73,10 +74,14 @@ class ActivityForecast : DaggerAppCompatActivity() {
                         it.data?.let { value ->
                             value.body()?.let { res ->
                                 Timber.e(res.toString())
-                                displayTemp(res)
+                                runOnUiThread {
+                                    displayTemp(res)
+                                }.also {
+                                    fetchWeeksData()
+                                }
                             }
                         }
-                        fetchWeeksData()
+
                     }
                     Status.ERROR -> apiStatus(::showStatus, Status.ERROR) //error
                     //status(Status.ERROR)

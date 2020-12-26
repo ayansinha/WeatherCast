@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import org.weathercast.data.model.WeatherCurrentModel
 import org.weathercast.data.model.WeeksForecastModel
@@ -25,15 +26,15 @@ class ForecastViewModel @Inject constructor(
 ): ViewModel() {
 
     private lateinit var job: Job
-    private val _currentWeatherModel =
-        MutableLiveData<Resource<Response<WeatherCurrentModel>>>()
-    val resultCurrentWeather: LiveData<Resource<Response<WeatherCurrentModel>>>
-        get() = _currentWeatherModel
+        private val _currentWeatherModel =
+            MutableLiveData<Resource<Response<WeatherCurrentModel>>>()
+        val resultCurrentWeather: LiveData<Resource<Response<WeatherCurrentModel>>>
+            get() = _currentWeatherModel
 
-    private val _weeksData =
-        MutableLiveData<Resource<Response<WeeksForecastModel>>>()
-    val resultWeeksData: LiveData<Resource<Response<WeeksForecastModel>>>
-        get() = _weeksData
+        private val _weeksData =
+            MutableLiveData<Resource<Response<WeeksForecastModel>>>()
+        val resultWeeksData: LiveData<Resource<Response<WeeksForecastModel>>>
+            get() = _weeksData
 
     init {
         Timber.d("INIT_BLOCK: --> init block")
@@ -50,7 +51,9 @@ class ForecastViewModel @Inject constructor(
             _currentWeatherModel.postValue(Resource.loading(null))
             try {
                 _currentWeatherModel.postValue(Resource.success(remote.getCurrentWeather("Pune")))
-                fetchWeeksData()
+                launch {
+                    fetchWeeksData()
+                }
             } catch (e: IOException) {
                 _currentWeatherModel.postValue(Resource.error(ERROR_MSG, null))
             }
